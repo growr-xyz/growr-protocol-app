@@ -1,0 +1,31 @@
+.container {
+  flex: 1;
+  background: #ebebeb;
+  height: 100%;
+  padding-left: 2em;
+}
+
+.logoContainer {
+  margin-top: 70px;
+}
+
+.navContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-top: 80px;
+}
+
+.navItem {
+  font-family: Rubik;
+  font-size: 25px;
+  line-height: 30px;
+  /* identical to box height */
+
+  color: #000000;
+}
+
+.activeNavItem {
+  font-size: 25px;
+  font-weight: 700;
+}
