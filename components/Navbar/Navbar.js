@@ -2,6 +2,7 @@ import Link from "next/link";
 import styles from "./Navbar.module.css";
 import { useRouter } from "next/router";
 import Logo from "../Icons/Logo";
+import { useConnected } from "@/store/store";
 
 const navConfig = [
   {
@@ -24,7 +25,9 @@ const navConfig = [
 
 export default function Navbar() {
   const router = useRouter();
-  console.log("router", router);
+
+  let connected = useConnected();
+
   return (
     <div className={styles.container}>
       <div className={styles.logoContainer}>
@@ -36,6 +39,16 @@ export default function Navbar() {
 
           if (router.pathname === href) {
             className.push(styles.activeNavItem);
+          }
+
+          if (!connected && href !== "/") {
+            className.push(styles.disabled);
+
+            return (
+              <span className={className.join(" ")} key={href}>
+                <a>{label}</a>
+              </span>
+            );
           }
 
           return (

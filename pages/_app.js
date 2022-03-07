@@ -1,7 +1,10 @@
+import useEthers from "@/hooks/useEthers";
 import Layout from "../components/Layout/Layout";
 import "../styles/globals.css";
 
 function MyApp({ Component, pageProps }) {
+  useEthers();
+
   return (
     <Layout>
       <Component {...pageProps} />

@@ -1,0 +1,13 @@
+.container {
+}
+
+.title {
+  margin-bottom: 3rem;
+  font-size: 3rem;
+}
+
+.balances {
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
+}

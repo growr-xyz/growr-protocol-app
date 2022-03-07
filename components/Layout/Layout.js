@@ -1,12 +1,11 @@
-import { useState } from "react";
 import Head from "next/head";
+import Header from "../Header/Header";
 import Navbar from "../Navbar/Navbar";
+import Overlay from "../Overlay/Overlay";
 
 import styles from "./Layout.module.css";
 
 export default function Layout({ children }) {
-  let [daw] = useState();
-
   return (
     <div className={styles.container}>
       <Head>
@@ -16,7 +15,11 @@ export default function Layout({ children }) {
       </Head>
       <Navbar />
 
-      <main className={styles.content}>{children}</main>
+      <main className={styles.content}>
+        <Header />
+        <div className={styles.children}>{children}</div>
+      </main>
+      <Overlay />
     </div>
   );
 }

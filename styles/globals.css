@@ -1,9 +1,19 @@
 html,
-body {
+body,
+span,
+h1,
+h2,
+h3,
+h4,
+h5 {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: Rubik, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu,
+    Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+html {
+  font-size: 10px;
 }
 
 #__next {
@@ -18,4 +28,27 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+body {
+  --accent-color: #18d0ba;
+  --background-color: #ffffff;
+  --font-color: #000000;
+  --button-background: var(--accent-color);
+  --button-color: #fff;
+}
+
+@media (prefers-color-scheme: light) {
+  body {
+    --background: #fff;
+    --sidebar-background: #ebebeb;
+    --font-color: #000000;
+  }
+}
+@media (prefers-color-scheme: dark) {
+  body {
+    --background: #000;
+    --sidebar-background: #3c3c3c;
+    --font-color: #fff;
+  }
 }
