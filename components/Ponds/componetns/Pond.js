@@ -1,7 +1,7 @@
 import Link from "next/link";
-import styles from "./Balance.module.css";
+import styles from "./Pond.module.css";
 
-function Balance({ label, value, token }) {
+function Pond({ label, value, index }) {
   return (
     <div className={styles.container}>
       <div className={styles.labelContainer}>
@@ -13,15 +13,24 @@ function Balance({ label, value, token }) {
         <Link
           className={styles.link}
           href={{
-            pathname: "/lend/create",
-            query: { token },
+            pathname: "/lend/deposit",
+            query: { pondIndex: index },
           }}
         >
-          Lend
+          Deposit
+        </Link>
+        <Link
+          className={styles.link}
+          href={{
+            pathname: "/lend/withdraw",
+            query: { pondIndex: index },
+          }}
+        >
+          Withdraw
         </Link>
       </div>
     </div>
   );
 }
 
-export default Balance;
+export default Pond;

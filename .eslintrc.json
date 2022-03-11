@@ -7,7 +7,8 @@
     "react/jsx-filename-extension": "off",
     "react/prop-types": "off",
     "import/extensions": "off",
-    "import/no-unresolved": "off"
+    "import/no-unresolved": "off",
+    "no-underscore-dangle": "off"
     
   },
   "plugins": ["prettier"]

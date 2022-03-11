@@ -22,7 +22,9 @@ const useStore = create(
     provider: null,
     contracts: {
       pondFactory: null,
+      pond: null,
     },
+    ponds: [],
     overlay: {
       active: false,
       type: "",
@@ -40,5 +42,6 @@ export const useEthereum = () => useStore((state) => state.ethereum);
 export const useOverlay = () => useStore((state) => state.overlay);
 export const useChainId = () => useStore((state) => state.chainId);
 export const useDispatch = () => useStore((state) => state.dispatch);
+export const useContracts = () => useStore((state) => state.contracts);
 
 export default useStore;

@@ -1,0 +1,29 @@
+.input {
+  margin-bottom: 20px;
+  width: 100%;
+  border: 1px solid #b2b2b2;
+  padding: 1rem;
+  border-radius: 5px;
+}
+
+.input.error {
+  color: #000000;
+  background-color: #f8e9ee;
+  border: 1px solid #eaaec1;
+}
+
+.input.disabled {
+  opacity: 0.6;
+}
+
+@media (min-width: 1080px) {
+  .input {
+    font-size: 2.2rem;
+  }
+}
+
+@media (min-width: 1920px) {
+  .input {
+    font-size: 2.6rem;
+  }
+}

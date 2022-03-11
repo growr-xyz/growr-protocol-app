@@ -9,10 +9,12 @@
   },
   "dependencies": {
     "ethers": "^5.5.4",
+    "formik": "^2.2.9",
     "next": "12.0.10",
     "prettier": "^2.5.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
+    "react-toastify": "^8.2.0",
     "zustand": "^3.7.0"
   },
   "devDependencies": {

@@ -1,6 +1,6 @@
 import Link from "next/link";
-import styles from "./Navbar.module.css";
 import { useRouter } from "next/router";
+import styles from "./Navbar.module.css";
 import Logo from "../Icons/Logo";
 import { useConnected } from "@/store/store";
 
@@ -26,7 +26,7 @@ const navConfig = [
 export default function Navbar() {
   const router = useRouter();
 
-  let connected = useConnected();
+  const connected = useConnected();
 
   return (
     <div className={styles.container}>
@@ -35,9 +35,13 @@ export default function Navbar() {
       </div>
       <div className={styles.navContainer}>
         {navConfig.map(({ href, label }) => {
-          let className = [styles.navItem];
+          const className = [styles.navItem];
 
-          if (router.pathname === href) {
+          if (router.pathname === "/" && href === "/") {
+            className.push(styles.activeNavItem);
+          }
+
+          if (router.pathname.startsWith(href) && href !== "/") {
             className.push(styles.activeNavItem);
           }
 

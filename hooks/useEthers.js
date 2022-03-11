@@ -52,7 +52,7 @@ const useEthers = () => {
     // provider.on("accountsChanged", (accounts) => {
     //   console.log("accounts", accounts);
     // });
-    dispatch({ method: "init", params: [window.ethereum] });
+    dispatch({ method: "attemptToConnect", params: [window.ethereum] });
   }, []);
 
   // detect network change
@@ -62,9 +62,7 @@ const useEthers = () => {
         dispatch({ method: "toggleOverlay", params: ["wrongChain"] });
       }
       ethereum.on("chainChanged", (newChainId) => {
-        console.log(newChainId);
         const parsedChainId = ethers.utils.formatUnits(newChainId);
-        console.log("parsedChainId", parsedChainId);
         if (!allowedChains.includes(parsedChainId)) {
           dispatch({ method: "toggleOverlay", params: ["wrongChain"] });
           return;

@@ -1,28 +1,10 @@
-import { ethers } from "ethers";
+import init from "./init";
 
-const connect = (set, get) => async () => {
-  const { ethereum } = get();
-
+const connect = (set, get) => async (ethereum) => {
   if (ethereum) {
     try {
-      const accounts = await ethereum.send("eth_requestAccounts", []);
-      const balance = await ethereum.request({
-        method: "eth_getBalance",
-        params: [ethereum.selectedAddress, "latest"],
-      });
-
-      const parsedBalance = ethers.utils.formatUnits(balance);
-
-      const chainId = await ethereum.request({ method: "eth_chainId" });
-      const parsedChainId = ethers.utils.formatUnits(chainId);
-
-      set({
-        ethereum,
-        account: accounts.result[0],
-        balance: parsedBalance,
-        connected: true,
-        chainId: parsedChainId,
-      });
+      const { result } = await ethereum.send("eth_requestAccounts", []);
+      await init({ set, get, ethereum, selectedAddress: result[0] });
     } catch (error) {
       console.log("error", error);
       set({ error });

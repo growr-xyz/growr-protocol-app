@@ -49,7 +49,7 @@
                         "type": "uint256"
                     }
                 ],
-                "internalType": "struct PondTypes.Params",
+                "internalType": "struct Types.PondParams",
                 "name": "_params",
                 "type": "tuple"
             },
@@ -72,11 +72,11 @@
                     },
                     {
                         "internalType": "string[]",
-                        "name": "operations",
+                        "name": "operators",
                         "type": "string[]"
                     }
                 ],
-                "internalType": "struct PondTypes.Criteria",
+                "internalType": "struct Types.PondCriteriaInput",
                 "name": "_criteria",
                 "type": "tuple"
             }
@@ -102,6 +102,102 @@
         ],
         "name": "OwnershipTransferred",
         "type": "event"
+    },
+    {
+        "inputs": [],
+        "name": "active",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_amount",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_duration",
+                "type": "uint256"
+            }
+        ],
+        "name": "borrow",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "name": "criteria",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "_exists",
+                "type": "bool"
+            },
+            {
+                "internalType": "string",
+                "name": "_name",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "_type",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "_content",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "_operator",
+                "type": "string"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "amount",
+                "type": "uint256"
+            }
+        ],
+        "name": "deposit",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "getAvailableBalance",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
     },
     {
         "inputs": [],
@@ -155,36 +251,41 @@
                         "type": "uint256"
                     }
                 ],
-                "internalType": "struct PondTypes.Params",
+                "internalType": "struct Types.PondParams",
                 "name": "_params",
                 "type": "tuple"
             },
             {
                 "components": [
                     {
-                        "internalType": "string[]",
-                        "name": "names",
-                        "type": "string[]"
+                        "internalType": "bool",
+                        "name": "_exists",
+                        "type": "bool"
                     },
                     {
-                        "internalType": "string[]",
-                        "name": "types",
-                        "type": "string[]"
+                        "internalType": "string",
+                        "name": "_name",
+                        "type": "string"
                     },
                     {
-                        "internalType": "string[]",
-                        "name": "contents",
-                        "type": "string[]"
+                        "internalType": "string",
+                        "name": "_type",
+                        "type": "string"
                     },
                     {
-                        "internalType": "string[]",
-                        "name": "operations",
-                        "type": "string[]"
+                        "internalType": "string",
+                        "name": "_content",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "_operator",
+                        "type": "string"
                     }
                 ],
-                "internalType": "struct PondTypes.Criteria",
+                "internalType": "struct Types.PondCriteria[]",
                 "name": "_criteria",
-                "type": "tuple"
+                "type": "tuple[]"
             },
             {
                 "internalType": "uint256",
@@ -195,6 +296,137 @@
                 "internalType": "uint256",
                 "name": "_totalUtilized",
                 "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_totalInterest",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "name": "getLenderBalance",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "name": "getLoan",
+        "outputs": [
+            {
+                "internalType": "contract Loan",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_amount",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_duration",
+                "type": "uint256"
+            },
+            {
+                "components": [
+                    {
+                        "internalType": "string[]",
+                        "name": "names",
+                        "type": "string[]"
+                    },
+                    {
+                        "internalType": "string[]",
+                        "name": "contents",
+                        "type": "string[]"
+                    }
+                ],
+                "internalType": "struct Types.PersonalCredentialsInput",
+                "name": "_credentials",
+                "type": "tuple"
+            }
+        ],
+        "name": "getLoanOffer",
+        "outputs": [
+            {
+                "components": [
+                    {
+                        "internalType": "bool",
+                        "name": "approved",
+                        "type": "bool"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "amount",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "duration",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "annualInterestRate",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "disbursmentFee",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "cashBackRate",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "totalInterest",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "totalAmount",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "installmentAmount",
+                        "type": "uint256"
+                    }
+                ],
+                "internalType": "struct Types.LoanOffer",
+                "name": "_loan",
+                "type": "tuple"
             }
         ],
         "stateMutability": "view",
@@ -221,8 +453,39 @@
         "type": "function"
     },
     {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_amount",
+                "type": "uint256"
+            },
+            {
+                "internalType": "address",
+                "name": "_loan",
+                "type": "address"
+            }
+        ],
+        "name": "repay",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
         "inputs": [],
         "name": "totalDeposited",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "totalInterest",
         "outputs": [
             {
                 "internalType": "uint256",
@@ -255,6 +518,19 @@
             }
         ],
         "name": "transferOwnership",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_amount",
+                "type": "uint256"
+            }
+        ],
+        "name": "withdraw",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
