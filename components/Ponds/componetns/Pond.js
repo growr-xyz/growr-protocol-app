@@ -31,6 +31,15 @@ function Pond({ label, tokenSymbol, value, index }) {
         >
           Withdraw
         </Link>
+        <Link
+          className={styles.link}
+          href={{
+            pathname: "/lend/details",
+            query: { pondIndex: index },
+          }}
+        >
+          Details
+        </Link>
       </div>
     </div>
   );
