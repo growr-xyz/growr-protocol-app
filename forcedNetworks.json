@@ -1,0 +1,31 @@
+{
+  "rskMainNet": {
+    "chainId": 30,
+    "chainName": "RSK Mainnet",
+    "nativeCurrency": {
+      "name": "RSK Mainnet Ether",
+      "symbol": "RBTC",
+      "decimals": 18
+    },
+    "rpcUrls": [
+      "https://public-node.rsk.co",
+      "https://mycrypto.rsk.co"
+    ],
+    "blockExplorerUrls": [
+      "https://explorer.rsk.co"
+    ]
+  },
+  "rskTestNet": {
+    "chainId": 31,
+    "chainName": "RSK Testnet",
+    "nativeCurrency": {
+      "name": "RSK Testnet Ether",
+      "symbol": "tRBTC",
+      "decimals": 18
+    },
+    "rpcUrls": [
+      "https://public-node.testnet.rsk.co",
+      "https://mycrypto.testnet.rsk.co"
+    ]
+  }
+}

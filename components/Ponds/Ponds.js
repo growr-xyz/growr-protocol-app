@@ -3,6 +3,8 @@ import useStore from "@/store/store";
 import styles from "./Ponds.module.css";
 import Pond from "./componetns/Pond";
 
+import tokensConfig from "../../tokens.json";
+
 function Ponds({ label }) {
   const ponds = useStore((state) => state.ponds);
   console.log("ponds", ponds);
@@ -28,8 +30,9 @@ function Ponds({ label }) {
         {ponds.length ? (
           ponds.map(({ details, index }) => {
             const { name, token } = details._params;
+            const tokenSymbol = tokensConfig.find(element => element.address === token).symbol;
             const value = ethers.utils.formatUnits(details._totalDeposited);
-            return <Pond key={token} {...{ label: name, value, index }} />;
+            return <Pond key={token} {...{ label: name, tokenSymbol, value, index }} />;
           })
         ) : (
           <div className={styles.dryPonds}>

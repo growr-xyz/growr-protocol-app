@@ -18,6 +18,8 @@ export default function Deposit() {
   }));
   const [currentPond, setCurrentPond] = useState(null);
 
+  console.log(currentPond);
+
   useEffect(() => {
     if (history.query.pondIndex) {
       const pond = ponds.find(
@@ -65,7 +67,7 @@ export default function Deposit() {
   return (
     <div className={styles.container}>
       {currentPond && (
-        <h1>{`Deposit in ${currentPond.details._params.name}`}</h1>
+        <h1>{`Deposit ${tokens.find(element => element.address === currentPond.details._params.token).symbol} in ${currentPond.details._params.name}`}</h1>
       )}
       <Input {...{ value: amount, onChange, placeholder: "Amount" }} />
       <Button {...{ label: "Deposit", onClick: onDeposit }} />

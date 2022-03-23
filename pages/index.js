@@ -18,31 +18,7 @@ import Ponds from "@/components/Ponds/Ponds";
 
 import tokens from "../tokens.json";
 
-const networksConfig = {
-  rskMainNet: {
-    chainId: `0x${Number(30).toString(16)}`, // A 0x-prefixed hexadecimal string
-    chainName: "RSK Mainnet",
-    nativeCurrency: { name: "RSK Mainnet Ether", symbol: "RBTC", decimals: 18 },
-    rpcUrls: ["https://public-node.rsk.co", "https://mycrypto.rsk.co"],
-    blockExplorerUrls: ["https://explorer.rsk.co"],
-  },
-  rskTestNet: {
-    chainId: `0x${Number(31).toString(16)}`, // A 0x-prefixed hexadecimal string
-    chainName: "RSK Testnet",
-    nativeCurrency: {
-      name: "RSK Testnet Ether",
-      symbol: "tRBTC",
-      decimals: 18,
-    },
-    rpcUrls: [
-      "https://public-node.testnet.rsk.co",
-      "https://mycrypto.testnet.rsk.co",
-    ],
-  },
-};
-
-// const { publicRuntimeConfig } = getConfig();
-// const { pondFactoryAddress } = publicRuntimeConfig;
+import networksConfig from "../forcedNetworks.json";
 
 const xUSDaddress = tokens.filter(element => element.symbol === 'xUSD');
 
@@ -169,7 +145,8 @@ export default function Home() {
 
   // eslint-disable-next-line no-unused-vars
   const changeNetwork = async (network) => {
-    const selectedNetworkConfig = networksConfig[network];
+    let selectedNetworkConfig = networksConfig[network];
+    selectedNetworkConfig.chainId = `0x${Number(selectedNetworkConfig.chainId).toString(16)}`; // A 0x-prefixed hexadecimal string
     try {
       // eslint-disable-next-line no-undef
       await window.ethereum.request({

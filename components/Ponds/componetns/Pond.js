@@ -1,12 +1,15 @@
 import Link from "next/link";
 import styles from "./Pond.module.css";
 
-function Pond({ label, value, index }) {
+function Pond({ label, tokenSymbol, value, index }) {
   return (
     <div className={styles.container}>
       <div className={styles.labelContainer}>
         {/* <div>icon</div> */}
         <div className={styles.label}>{label}</div>
+      </div>
+      <div className={styles.labelContainer}>
+        <div className={styles.value}>{tokenSymbol}</div>
       </div>
       <div className={styles.value}>{value}</div>
       <div className={styles.links}>

@@ -1,32 +1,12 @@
 import Button from "@/components/Button/Button";
 import styles from "./WrongNetwork.module.css";
 
-const networksConfig = {
-  rskMainNet: {
-    chainId: `0x${Number(30).toString(16)}`, // A 0x-prefixed hexadecimal string
-    chainName: "RSK Mainnet",
-    nativeCurrency: { name: "RSK Mainnet Ether", symbol: "RBTC", decimals: 18 },
-    rpcUrls: ["https://public-node.rsk.co", "https://mycrypto.rsk.co"],
-    blockExplorerUrls: ["https://explorer.rsk.co"],
-  },
-  rskTestNet: {
-    chainId: `0x${Number(31).toString(16)}`, // A 0x-prefixed hexadecimal string
-    chainName: "RSK Testnet",
-    nativeCurrency: {
-      name: "RSK Testnet Ether",
-      symbol: "tRBTC",
-      decimals: 18,
-    },
-    rpcUrls: [
-      "https://public-node.testnet.rsk.co",
-      "https://mycrypto.testnet.rsk.co",
-    ],
-  },
-};
+import networksConfig from "../../../forcedNetworks.json";
 
 function WrongNetwork() {
   const connect = async (network) => {
-    const selectedNetworkConfig = networksConfig[network];
+    let selectedNetworkConfig = networksConfig[network];
+    selectedNetworkConfig.chainId = `0x${Number(selectedNetworkConfig.chainId).toString(16)}`; // A 0x-prefixed hexadecimal string
     try {
       // eslint-disable-next-line no-undef
       await window.ethereum.request({
@@ -48,6 +28,10 @@ function WrongNetwork() {
       <Button
         label="Connect ot RSK Test network"
         onClick={() => connect("rskTestNet")}
+      />
+      <Button
+        label="Connect ot Localhost"
+        onClick={() => connect("localhost")}
       />
     </div>
   );

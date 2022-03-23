@@ -7,6 +7,8 @@ import useStore from "@/store/store";
 import styles from "./Withdraw.module.css";
 import Input from "@/components/Input/Input";
 
+import tokens from "../../../tokens.json";
+
 export default function Withdraw() {
   const [amount, setAmount] = useState("");
   const history = useRouter();
@@ -48,7 +50,7 @@ export default function Withdraw() {
   return (
     <div className={styles.container}>
       {currentPond && (
-        <h1>{`Withdraw from ${currentPond.details._params.name}`}</h1>
+        <h1>{`Withdraw ${tokens.find(element => element.address === currentPond.details._params.token).symbol} from ${currentPond.details._params.name}`}</h1>
       )}
       <Input {...{ value: amount, onChange, placeholder: "Amount" }} />
       <Button {...{ label: "Withdraw", onClick: onWithdraw }} />
