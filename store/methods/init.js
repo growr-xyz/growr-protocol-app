@@ -4,8 +4,12 @@ import Pond from "../../abi/Pond.json";
 import ERC20 from "../../abi/ERC20.json";
 
 import tokens from "../../tokens.json";
+import protocolContracts from "../../contracts.json";
 
-const pondFactoryAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
+console.log('protocolContracts=', protocolContracts);
+
+const pondFactoryAddress = protocolContracts.factory.address;
+console.log('pondFactoryAddress=', pondFactoryAddress);
 
 const init = async ({ set, get, ethereum, selectedAddress }) => {
   const state = get();

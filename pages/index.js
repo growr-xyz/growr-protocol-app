@@ -3,6 +3,7 @@ import Image from "next/image";
 
 import { BigNumber, ethers } from "ethers";
 import { useEffect, useRef, useState } from "react";
+import getConfig from 'next/config';
 import styles from "../styles/Home.module.css";
 import useEthers from "@/hooks/useEthers";
 import useWallet, { useAccount, useDispatch, useEthereum } from "@/store/store";
@@ -14,6 +15,8 @@ import pondFactoryPond from "../abi/PondFactory.json";
 import pondAbi from "../abi/Pond.json";
 import Balances from "@/components/Balances/Balances";
 import Ponds from "@/components/Ponds/Ponds";
+
+import tokens from "../tokens.json";
 
 const networksConfig = {
   rskMainNet: {
@@ -38,8 +41,10 @@ const networksConfig = {
   },
 };
 
-const xUSDaddress = "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512";
-const pondFactoryAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
+// const { publicRuntimeConfig } = getConfig();
+// const { pondFactoryAddress } = publicRuntimeConfig;
+
+const xUSDaddress = tokens.filter(element => element.symbol === 'xUSD');
 
 const defaultParams = {
   name: "Pond 1",
