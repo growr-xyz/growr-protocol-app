@@ -4,12 +4,11 @@ import Pond from "../../abi/Pond.json";
 import ERC20 from "../../abi/ERC20.json";
 
 import tokens from "../../tokens.json";
-import protocolContracts from "../../contracts.json";
 
-console.log('protocolContracts=', protocolContracts);
-
-const pondFactoryAddress = protocolContracts.factory.address;
-console.log('pondFactoryAddress=', pondFactoryAddress);
+// import protocolContracts from "../../contracts.json";
+// const pondFactoryAddress = protocolContracts.factory.address;
+// Better approach for the contract
+const pondFactoryAddress = process.env.NEXT_PUBLIC_POND_FACTORY_ADDRESS;
 
 const init = async ({ set, get, ethereum, selectedAddress }) => {
   const state = get();
@@ -37,9 +36,22 @@ const init = async ({ set, get, ethereum, selectedAddress }) => {
 
     // create instance of all contracts to set to state
     const contracts = tokens.reduce((acc, { symbol, address }) => {
-      acc[symbol] = new ethers.Contract(address, ERC20, signer);
+      // Yes, it's ugly, but we need to find a better way
+      let addr;
+      switch (symbol) {
+        case 'XUSD':
+            addr = process.env.NEXT_PUBLIC_XUSD_ADDRESS;
+            break;
+        case 'DOC':
+            addr = process.env.NEXT_PUBLIC_DOC_ADDRESS;
+            break;
+        default:
+            addr = address;
+      }
+      acc[symbol] = new ethers.Contract(addr, ERC20, signer);
       return acc;
     }, {});
+    console.log(contracts);
 
     const userPonds = await pondFactoryContract.functions.getUserPonds(
       selectedAddress
