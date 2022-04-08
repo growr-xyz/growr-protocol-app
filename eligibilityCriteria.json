@@ -1,0 +1,26 @@
+[
+    {
+        "name": "citizenship",
+        "label": "Citizenship"
+    },
+    {
+        "name": "hasKYC",
+        "label": "Passed KYC"
+    },
+    {
+        "name": "age",
+        "label": "Age"
+    },
+    {
+        "name": "avgMonthlyIncome",
+        "label": "Average Monthly Income"
+    },
+    {
+        "name": "avgMonthlyRest",
+        "label": "Average Monthly Rest"
+    },
+    {
+        "name": "savingPercent",
+        "label": "Saving Percent"
+    }
+]

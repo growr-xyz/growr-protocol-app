@@ -44,6 +44,14 @@ export default function Details() {
                     minAmount: ethers.utils.formatUnits(currentPondParams.minLoanAmount),
                     maxDuration: Number(currentPondParams.maxLoanDuration),
                     minDuration: Number(currentPondParams.minLoanDuration),
+                    eligibilityCriteria: Object.keys(currentPond.details._criteria).reduce(function (arr, key) {
+                        return arr.concat(
+                            "'",
+                            currentPond.details._criteria[key]._name, " ",
+                            currentPond.details._criteria[key]._operator, " ",
+                            currentPond.details._criteria[key]._content, "' "
+                        );
+                    }, []),
                     total: ethers.utils.formatUnits(currentPond.details._totalDeposited),
                     utilized: ethers.utils.formatUnits(currentPond.details._totalUtilized),
                     interest: ethers.utils.formatUnits(currentPond.details._totalInterest)
