@@ -36,7 +36,7 @@ function Ponds({ label }) {
           })
         ) : (
           <div className={styles.dryPonds}>
-            (You do not have any loans yet.)
+            (You do not have any ponds yet.)
           </div>
         )}
       </div>

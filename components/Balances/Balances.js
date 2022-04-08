@@ -16,13 +16,13 @@ function Balances() {
   useEffect(() => {
     (async () => {
       const tokensDetailsPromises = tokensConfig.map(
-        async ({ symbol, address }) => {
+        async ({ symbol }) => {
           const balance = await contracts[symbol].balanceOf(account);
-
+          console.log("Token:" + symbol + ", Address: " + contracts[symbol].address);
           return {
             symbol,
             balance: ethers.utils.formatUnits(balance),
-            address,
+            address: contracts[symbol].address,
           };
         }
       );
