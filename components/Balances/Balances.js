@@ -17,6 +17,7 @@ function Balances() {
     (async () => {
       const tokensDetailsPromises = tokensConfig.map(
         async ({ symbol }) => {
+          console.log("Account", account);
           const balance = await contracts[symbol].balanceOf(account);
           console.log("Token:", symbol, ", Address: ", contracts[symbol].address);
           return {
@@ -38,7 +39,7 @@ function Balances() {
         {/* <Balance {...{ label: "RBTC", value: nativeBalance }} /> */}
         {tokens &&
           tokens.map(({ symbol, balance, address }) => (
-            <Balance {...{ label: symbol, value: balance, token: address }} />
+            <Balance key={address} {...{ label: symbol, value: balance, token: address }} />
           ))}
       </div>
     </div>
