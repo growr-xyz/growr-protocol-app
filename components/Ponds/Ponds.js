@@ -32,7 +32,7 @@ function Ponds({ label }) {
             const { name, token } = details._params;
             const tokenSymbol = tokensConfig.find(element => element.address === token).symbol;
             const value = ethers.utils.formatUnits(details._totalDeposited);
-            return <Pond key={token} {...{ label: name, tokenSymbol, value, index }} />;
+            return <Pond key={index} {...{ label: name, tokenSymbol, value, index }} />;
           })
         ) : (
           <div className={styles.dryPonds}>
