@@ -9,9 +9,8 @@ import tokens from "../../../tokens.json";
 
 export default function Details() {
     const history = useRouter();
-    const { ponds, contracts } = useStore((state) => ({
+    const { ponds } = useStore((state) => ({
         ponds: state.ponds,
-        contracts: state.contracts,
     }));
     const [currentPond, setCurrentPond] = useState(null);
     const [currentPondParams, setCurrentPondParams] = useState();

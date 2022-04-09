@@ -50,7 +50,7 @@ export default function Navbar() {
 
             return (
               <span className={className.join(" ")} key={href}>
-                <a>{label}</a>
+                <a href={href}>{label}</a>
               </span>
             );
           }
@@ -58,7 +58,7 @@ export default function Navbar() {
           return (
             <span className={className.join(" ")} key={href}>
               <Link href={href}>
-                <a>{label}</a>
+                <a href={href}>{label}</a>
               </Link>
             </span>
           );

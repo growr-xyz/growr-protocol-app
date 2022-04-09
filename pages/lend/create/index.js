@@ -24,12 +24,12 @@ import criteria from "../../../eligibilityCriteria.json";
 //   cashBackRate: 5,
 // };
 
-//const defaultCriteria = {
+// const defaultCriteria = {
 //  names: ["citizenship"],
 //  types: ["string"],
 //  contents: ["SV"],
 //  operations: ["="],
-//};
+// };
 
 const dropdownOptions = () =>
   tokens.map(({ symbol, address }) => ({ value: address, label: symbol }));

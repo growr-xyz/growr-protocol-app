@@ -18,7 +18,7 @@ function Balances() {
       const tokensDetailsPromises = tokensConfig.map(
         async ({ symbol }) => {
           const balance = await contracts[symbol].balanceOf(account);
-          console.log("Token:" + symbol + ", Address: " + contracts[symbol].address);
+          console.log("Token:", symbol, ", Address: ", contracts[symbol].address);
           return {
             symbol,
             balance: ethers.utils.formatUnits(balance),

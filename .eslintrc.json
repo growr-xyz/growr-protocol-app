@@ -1,5 +1,8 @@
 {
-  "extends": ["airbnb", "prettier"],
+  "extends": [
+    "airbnb",
+    "prettier"
+  ],
   "rules": {
     "quotes": "off",
     "linebreak-style": "off",
@@ -8,8 +11,17 @@
     "react/prop-types": "off",
     "import/extensions": "off",
     "import/no-unresolved": "off",
-    "no-underscore-dangle": "off"
-    
+    "no-underscore-dangle": "off",
+    "prefer-const": "off",
+    "react/function-component-definition": "off",
+    "react/jsx-props-no-spreading": "off",
+    "prefer-arrow-callback": "off",
+    "object-shorthand": "off",
+    "react/button-has-type": "off",
+    "import/prefer-default-export": "off",
+    "jsx-a11y/label-has-associated-control": "off"
   },
-  "plugins": ["prettier"]
+  "plugins": [
+    "prettier"
+  ]
 }
