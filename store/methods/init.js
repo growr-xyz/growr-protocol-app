@@ -33,13 +33,14 @@ const init = async ({ set, get, ethereum, selectedAddress }) => {
       pondFactory,
       signer
     );
+    console.log('pondFactory contract', pondFactoryContract);
 
     // create instance of all contracts to set to state
     const contracts = tokens.reduce((acc, { symbol, address }) => {
       acc[symbol] = new ethers.Contract(address, ERC20, signer);
       return acc;
     }, {});
-    console.log(contracts);
+    console.log('contracts', contracts);
 
     const userPonds = await pondFactoryContract.functions.getUserPonds(
       selectedAddress

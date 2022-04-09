@@ -1,5 +1,5 @@
 import create from "zustand";
-import { persist, devtools } from "zustand/middleware";
+import { devtools } from "zustand/middleware";
 import * as methods from "./methods";
 
 const dispatch =
@@ -13,7 +13,7 @@ const dispatch =
   };
 
 const useStore = create(
-  devtools(persist((set, get) => ({
+  devtools((set, get) => ({
     connected: false,
     ethereum: null,
     error: null,
@@ -34,7 +34,7 @@ const useStore = create(
   }),
   {
     name: "growr-protocol-app-storage", // unique name
-  }))
+  })
 );
 
 export const useAccount = () => useStore((state) => state.account);
