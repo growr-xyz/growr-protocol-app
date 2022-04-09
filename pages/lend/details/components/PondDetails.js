@@ -1,6 +1,6 @@
 import styles from "./PondDetails.module.css";
 
-function PondDetails({ name, token, apr, disb, cashback, maxAmount, minAmount, maxDuration, minDuration, total, utilized, interest }) {
+function PondDetails({ name, token, apr, disb, cashback, maxAmount, minAmount, maxDuration, minDuration, eligibilityCriteria, total, utilized, interest }) {
     return (
         <div className={styles.container}>
             <div className={styles.container}>
@@ -32,6 +32,9 @@ function PondDetails({ name, token, apr, disb, cashback, maxAmount, minAmount, m
             </div>
             <div className={styles.container}>
                 Max loan duration: {maxDuration} months
+            </div>
+            <div className={styles.container}>
+                Eligibility criteria: {eligibilityCriteria}
             </div>
             <div className={styles.container}>
                 <h4>Utilization:</h4>

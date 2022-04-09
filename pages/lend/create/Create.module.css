@@ -2,3 +2,13 @@
   max-width: 1024px;
   margin-bottom: 3rem;
 }
+
+.criteriaContainer {
+    display: flex;
+    gap: 10px;
+}
+
+.label {
+  font-size: 2rem;
+  padding: 10px 0;
+}

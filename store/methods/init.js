@@ -36,19 +36,7 @@ const init = async ({ set, get, ethereum, selectedAddress }) => {
 
     // create instance of all contracts to set to state
     const contracts = tokens.reduce((acc, { symbol, address }) => {
-      // Yes, it's ugly, but we need to find a better way
-      let addr;
-      switch (symbol) {
-        case 'XUSD':
-            addr = process.env.NEXT_PUBLIC_XUSD_ADDRESS;
-            break;
-        case 'DOC':
-            addr = process.env.NEXT_PUBLIC_DOC_ADDRESS;
-            break;
-        default:
-            addr = address;
-      }
-      acc[symbol] = new ethers.Contract(addr, ERC20, signer);
+      acc[symbol] = new ethers.Contract(address, ERC20, signer);
       return acc;
     }, {});
     console.log(contracts);
