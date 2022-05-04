@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { ethers } from "ethers";
 import { toast } from "react-toastify";
+import { ethers } from "ethers";
 import Button from "@/components/Button/Button";
 import useStore from "@/store/store";
 import styles from "./Deposit.module.css";
 import Input from "@/components/Input/Input";
 
 import tokens from "../../../tokens.json";
+import incraseGasLimit from "@/helpers/incraseGasLimit";
 
 export default function Deposit() {
   const [amount, setAmount] = useState("");
@@ -15,10 +16,9 @@ export default function Deposit() {
   const { ponds, contracts } = useStore((state) => ({
     ponds: state.ponds,
     contracts: state.contracts,
+    provider: state.provider,
   }));
   const [currentPond, setCurrentPond] = useState(null);
-
-  console.log(currentPond);
 
   useEffect(() => {
     if (history.query.pondIndex) {
@@ -35,6 +35,10 @@ export default function Deposit() {
 
   const onDeposit = async () => {
     try {
+      // let gasPriceBN = await provider.getGasPrice();
+
+      // let providerGasPrice = ethers.utils.formatUnits(gasPriceBN, "gwei");
+
       const parsedAmount = ethers.utils.parseUnits(amount, "ether");
 
       const pondTokenAddress = currentPond.details._params.token;
@@ -50,11 +54,35 @@ export default function Deposit() {
       }
 
       const tokenContract = contracts[tokenConfig.symbol];
-      await tokenContract.approve(pondAddress, parsedAmount);
 
-      await currentPond.ref.deposit(parsedAmount);
+      let approveExpectedGasLimit = await tokenContract.estimateGas.approve(
+        pondAddress,
+        parsedAmount
+      );
 
-      history.replace("/");
+      let incrasedApproveGasLimit = incraseGasLimit(
+        approveExpectedGasLimit,
+        1.2
+      );
+
+      await tokenContract.approve(pondAddress, parsedAmount, {
+        // gasPrice: ethers.utils.parseUnits(String(providerGasPrice * 2), "gwei"),
+        gasLimit: incrasedApproveGasLimit,
+      });
+
+      let expectedDepositGasLimit = await currentPond.ref.estimateGas.deposit(
+        parsedAmount
+      );
+      let incrasedDepositGasLimit = incraseGasLimit(
+        expectedDepositGasLimit,
+        1.2
+      );
+
+      await currentPond.ref.deposit(parsedAmount, {
+        gasLimit: incrasedDepositGasLimit,
+      });
+
+      // history.replace("/");
     } catch (err) {
       console.log("deposit error: ", JSON.stringify(err, undefined, 2));
 
@@ -67,7 +95,11 @@ export default function Deposit() {
   return (
     <div className={styles.container}>
       {currentPond && (
-        <h1>{`Deposit ${tokens.find(element => element.address === currentPond.details._params.token).symbol} in ${currentPond.details._params.name}`}</h1>
+        <h1>{`Deposit ${
+          tokens.find(
+            (element) => element.address === currentPond.details._params.token
+          ).symbol
+        } in ${currentPond.details._params.name}`}</h1>
       )}
       <Input {...{ value: amount, onChange, placeholder: "Amount" }} />
       <Button {...{ label: "Deposit", onClick: onDeposit }} />

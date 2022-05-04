@@ -13,31 +13,34 @@ const dispatch =
   };
 
 const useStore = create(
-  devtools((set, get) => ({
-    connected: false,
-    ethereum: null,
-    error: null,
-    account: null,
-    balance: 0,
-    provider: null,
-    contracts: {
-      pondFactory: null,
-      pond: null,
-    },
-    ponds: [],
-    overlay: {
-      active: false,
-      type: "",
-    },
-    chainId: "",
-    dispatch: dispatch(set, get),
-  }),
-  {
-    name: "growr-protocol-app-storage", // unique name
-  })
+  devtools(
+    (set, get) => ({
+      connected: false,
+      ethereum: null,
+      error: null,
+      account: null,
+      balance: 0,
+      provider: null,
+      contracts: {
+        pondFactory: null,
+        pond: null,
+      },
+      ponds: [],
+      overlay: {
+        active: false,
+        type: "",
+      },
+      chainId: "",
+      dispatch: dispatch(set, get),
+    }),
+    {
+      name: "growr-protocol-app-storage", // unique name
+    }
+  )
 );
 
 export const useAccount = () => useStore((state) => state.account);
+export const useProvider = () => useStore((state) => state.provider);
 export const useBalance = () => useStore((state) => state.balance);
 export const useConnected = () => useStore((state) => state.connected);
 export const useEthereum = () => useStore((state) => state.ethereum);
