@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { ethers } from "ethers";
-import { useAccount, useContracts } from "@/store/store";
+import { useAccount, useBalance, useContracts } from "@/store/store";
 import styles from "./Balances.module.css";
 import Balance from "./components/Balance";
 
@@ -10,19 +10,29 @@ function Balances() {
   // const nativeBalance = useBalance();
   const account = useAccount();
   const contracts = useContracts();
-
+  const nativeTokenBalance = useBalance();
   const [tokens, setTokens] = useState();
 
   useEffect(() => {
     (async () => {
       const tokensDetailsPromises = tokensConfig.map(
-        async ({ symbol }) => {
-          console.log("Account", account);
-          const balance = await contracts[symbol].balanceOf(account);
-          console.log("Token:", symbol, ", Address: ", contracts[symbol].address);
+        async ({ symbol, native }) => {
+          let balance;
+          if (native) {
+            balance = nativeTokenBalance;
+          } else {
+            const _balance = await contracts[symbol].balanceOf(account);
+            balance = ethers.utils.formatUnits(_balance);
+          }
+          console.log(
+            "Token:",
+            symbol,
+            ", Address: ",
+            contracts[symbol].address
+          );
           return {
             symbol,
-            balance: ethers.utils.formatUnits(balance),
+            balance,
             address: contracts[symbol].address,
           };
         }
@@ -39,7 +49,10 @@ function Balances() {
         {/* <Balance {...{ label: "RBTC", value: nativeBalance }} /> */}
         {tokens &&
           tokens.map(({ symbol, balance, address }) => (
-            <Balance key={address} {...{ label: symbol, value: balance, token: address }} />
+            <Balance
+              key={address}
+              {...{ label: symbol, value: balance, token: address }}
+            />
           ))}
       </div>
     </div>

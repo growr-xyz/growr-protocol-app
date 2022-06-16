@@ -34,8 +34,22 @@ export default function Withdraw() {
   const onWithdraw = async () => {
     try {
       const parsedAmount = ethers.utils.parseUnits(amount, "ether");
+      const pondTokenAddress = currentPond.details._params.token;
+      const tokenConfig = tokens.find(
+        ({ address }) => address === pondTokenAddress
+      );
 
-      await currentPond.ref.withdraw(parsedAmount);
+      if (!tokenConfig) {
+        throw new Error(
+          `Token with address: ${pondTokenAddress} has no configuration`
+        );
+      }
+
+      if (tokenConfig.native) {
+        await currentPond.ref.withdrawRBTC(parsedAmount);
+      } else {
+        await currentPond.ref.withdraw(parsedAmount);
+      }
 
       history.replace("/");
     } catch (err) {
@@ -50,7 +64,11 @@ export default function Withdraw() {
   return (
     <div className={styles.container}>
       {currentPond && (
-        <h1>{`Withdraw ${tokens.find(element => element.address === currentPond.details._params.token).symbol} from ${currentPond.details._params.name}`}</h1>
+        <h1>{`Withdraw ${
+          tokens.find(
+            (element) => element.address === currentPond.details._params.token
+          ).symbol
+        } from ${currentPond.details._params.name}`}</h1>
       )}
       <Input {...{ value: amount, onChange, placeholder: "Amount" }} />
       <Button {...{ label: "Withdraw", onClick: onWithdraw }} />

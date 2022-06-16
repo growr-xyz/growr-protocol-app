@@ -28,19 +28,55 @@ const init = async ({ set, get, ethereum, selectedAddress }) => {
 
     const signer = provider.getSigner();
 
+    // test
+
+    // const testProvider = new ethers.providers.JsonRpcProvider(
+    //   "https://public-node.testnet.rsk.co"
+    // );
+
+    // const testPondFactoryContract = new ethers.Contract(
+    //   pondFactoryAddress,
+    //   pondFactory,
+    //   testProvider.getSigner()
+    // );
+    // console.log("testPondFactoryContract", testPondFactoryContract);
+
+    // // test
+    // const filter = {
+    //   address: pondFactoryAddress,
+    //   topics: [utils.id("PondCreated(address,address,uint256)")],
+    // };
+
+    // testPondFactoryContract.on(filter, (args) => {
+    //   console.log("cb arguments: ", args);
+    // });
+
+    // provider.on(filter, (...args) => {
+    //   console.log("cb arguments: ", args);
+    // });
+
     const pondFactoryContract = new ethers.Contract(
       pondFactoryAddress,
       pondFactory,
       signer
     );
-    console.log('pondFactory contract', pondFactoryContract);
+
+    // pondFactoryContract.on(
+    //   {
+    //     address: pondFactoryAddress,
+    //     topics: [utils.id("PondCreated(address,address,uint256)")],
+    //   },
+    //   (address, owner, timestamp) => {
+    //     console.log("Event PondCreated:", address, owner, timestamp);
+    //   }
+    // );
 
     // create instance of all contracts to set to state
     const contracts = tokens.reduce((acc, { symbol, address }) => {
       acc[symbol] = new ethers.Contract(address, ERC20, signer);
       return acc;
     }, {});
-    console.log('contracts', contracts);
+    console.log("contracts", contracts);
 
     const userPonds = await pondFactoryContract.functions.getUserPonds(
       selectedAddress

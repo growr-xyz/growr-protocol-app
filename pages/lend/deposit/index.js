@@ -8,7 +8,7 @@ import styles from "./Deposit.module.css";
 import Input from "@/components/Input/Input";
 
 import tokens from "../../../tokens.json";
-import incraseGasLimit from "@/helpers/incraseGasLimit";
+import increaseGasLimit from "@/helpers/increaseGasLimit";
 
 export default function Deposit() {
   const [amount, setAmount] = useState("");
@@ -32,20 +32,13 @@ export default function Deposit() {
   const onChange = (e) => {
     setAmount(e.target.value);
   };
-
   const onDeposit = async () => {
     try {
-      // let gasPriceBN = await provider.getGasPrice();
-
-      // let providerGasPrice = ethers.utils.formatUnits(gasPriceBN, "gwei");
-
       const parsedAmount = ethers.utils.parseUnits(amount, "ether");
-
       const pondTokenAddress = currentPond.details._params.token;
       const tokenConfig = tokens.find(
         ({ address }) => address === pondTokenAddress
       );
-
       const pondAddress = currentPond.ref.address;
       if (!tokenConfig) {
         throw new Error(
@@ -60,29 +53,57 @@ export default function Deposit() {
         parsedAmount
       );
 
-      let incrasedApproveGasLimit = incraseGasLimit(
+      console.log("approveExpectedGasLimit", approveExpectedGasLimit);
+
+      let incrasedApproveGasLimit = increaseGasLimit(
         approveExpectedGasLimit,
         1.2
       );
+      console.log("incrasedApproveGasLimit", incrasedApproveGasLimit);
 
       await tokenContract.approve(pondAddress, parsedAmount, {
         // gasPrice: ethers.utils.parseUnits(String(providerGasPrice * 2), "gwei"),
         gasLimit: incrasedApproveGasLimit,
       });
 
-      let expectedDepositGasLimit = await currentPond.ref.estimateGas.deposit(
-        parsedAmount
-      );
-      let incrasedDepositGasLimit = incraseGasLimit(
-        expectedDepositGasLimit,
-        1.2
-      );
+      if (tokenConfig.native) {
+        let _balance = await currentPond.ref.getAvailableBalance();
 
-      await currentPond.ref.deposit(parsedAmount, {
-        gasLimit: incrasedDepositGasLimit,
-      });
+        const balanceString = ethers.utils.formatUnits(_balance);
 
-      // history.replace("/");
+        const gasMultipler = Number(balanceString) === 0 ? 5 : 2.5;
+
+        let expectedDepositGasLimit =
+          await currentPond.ref.estimateGas.depositRBTC(parsedAmount);
+
+        let incrasedDepositGasLimit = increaseGasLimit(
+          expectedDepositGasLimit,
+          gasMultipler
+        );
+        console.log("incrasedDepositGasLimit", incrasedDepositGasLimit);
+
+        await currentPond.ref.depositRBTC(parsedAmount, {
+          gasLimit: incrasedDepositGasLimit,
+          value: parsedAmount,
+        });
+      } else {
+        let expectedDepositGasLimit = await currentPond.ref.estimateGas.deposit(
+          parsedAmount
+        );
+        console.log("expectedDepositGasLimit", expectedDepositGasLimit);
+
+        let incrasedDepositGasLimit = increaseGasLimit(
+          expectedDepositGasLimit,
+          2
+        );
+        console.log("incrasedDepositGasLimit", incrasedDepositGasLimit);
+
+        await currentPond.ref.deposit(parsedAmount, {
+          gasLimit: incrasedDepositGasLimit,
+        });
+      }
+
+      history.replace("/");
     } catch (err) {
       console.log("deposit error: ", JSON.stringify(err, undefined, 2));
 
