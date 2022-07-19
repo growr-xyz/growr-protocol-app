@@ -55,15 +55,15 @@ export default function Deposit() {
 
       console.log("approveExpectedGasLimit", approveExpectedGasLimit);
 
-      let incrasedApproveGasLimit = increaseGasLimit(
+      let increasedApproveGasLimit = increaseGasLimit(
         approveExpectedGasLimit,
         1.2
       );
-      console.log("incrasedApproveGasLimit", incrasedApproveGasLimit);
+      console.log("increasedApproveGasLimit", increasedApproveGasLimit);
 
       await tokenContract.approve(pondAddress, parsedAmount, {
         // gasPrice: ethers.utils.parseUnits(String(providerGasPrice * 2), "gwei"),
-        gasLimit: incrasedApproveGasLimit,
+        gasLimit: increasedApproveGasLimit,
       });
 
       if (tokenConfig.native) {
@@ -74,13 +74,14 @@ export default function Deposit() {
         const gasMultipler = Number(balanceString) === 0 ? 5 : 2.5;
 
         let expectedDepositGasLimit =
-          await currentPond.ref.estimateGas.depositRBTC(parsedAmount);
+          await currentPond.ref.estimateGas.depositRBTC(parsedAmount, { value: parsedAmount });
 
         let incrasedDepositGasLimit = increaseGasLimit(
           expectedDepositGasLimit,
           gasMultipler
         );
-        console.log("incrasedDepositGasLimit", incrasedDepositGasLimit);
+        console.log("IncreasedDepositGasLimit wrbtc", incrasedDepositGasLimit);
+        console.log("Parsed amount wrbtc", parsedAmount);
 
         await currentPond.ref.depositRBTC(parsedAmount, {
           gasLimit: incrasedDepositGasLimit,
@@ -116,11 +117,10 @@ export default function Deposit() {
   return (
     <div className={styles.container}>
       {currentPond && (
-        <h1>{`Deposit ${
-          tokens.find(
-            (element) => element.address === currentPond.details._params.token
-          ).symbol
-        } in ${currentPond.details._params.name}`}</h1>
+        <h1>{`Deposit ${tokens.find(
+          (element) => element.address === currentPond.details._params.token
+        ).symbol
+          } in ${currentPond.details._params.name}`}</h1>
       )}
       <Input {...{ value: amount, onChange, placeholder: "Amount" }} />
       <Button {...{ label: "Deposit", onClick: onDeposit }} />

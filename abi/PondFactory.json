@@ -1,6 +1,17 @@
 [
     {
-        "inputs": [],
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_verificationRegistry",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "_wrbtc",
+                "type": "address"
+            }
+        ],
         "stateMutability": "nonpayable",
         "type": "constructor"
     },
@@ -28,6 +39,19 @@
         ],
         "name": "PondCreated",
         "type": "event"
+    },
+    {
+        "inputs": [],
+        "name": "WRBTC",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
     },
     {
         "inputs": [
@@ -79,7 +103,7 @@
                         "type": "uint256"
                     }
                 ],
-                "internalType": "struct PondTypes.Params",
+                "internalType": "struct Types.PondParams",
                 "name": "_params",
                 "type": "tuple"
             },
@@ -102,16 +126,29 @@
                     },
                     {
                         "internalType": "string[]",
-                        "name": "operations",
+                        "name": "operators",
                         "type": "string[]"
                     }
                 ],
-                "internalType": "struct PondTypes.Criteria",
+                "internalType": "struct Types.PondCriteriaInput",
                 "name": "_criteria",
                 "type": "tuple"
             }
         ],
         "name": "createPond",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "pondAddress",
+                "type": "address"
+            }
+        ],
+        "name": "destroyPond",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
@@ -167,6 +204,25 @@
                 "internalType": "address",
                 "name": "",
                 "type": "address"
+            }
+        ],
+        "name": "getPondId",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
             },
             {
                 "internalType": "uint256",
@@ -180,6 +236,30 @@
                 "internalType": "contract Pond",
                 "name": "",
                 "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "name": "getUserPondId",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
             }
         ],
         "stateMutability": "view",
@@ -218,6 +298,19 @@
                 "internalType": "uint256",
                 "name": "",
                 "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "verificationRegistry",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
             }
         ],
         "stateMutability": "view",

@@ -1,8 +1,8 @@
 const Logo = () => (
   <svg
-    width="145"
+    width="200"
     height="80"
-    viewBox="0 0 145 80"
+    viewBox="0 0 200 80"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
