@@ -7,10 +7,17 @@ Web application for protocol and lending pools governance (pool creation, fundin
 Config files:
 - eligibilityCriteria.json - possible pond requirements
 - forcedNetworks.json - supported blockchain networks
-- tokens.json - list of all token that the app will support
+- tokens.json - list of all tokens that the app will support
 
 ENV variables:
 - NEXT_PUBLIC_POND_FACTORY_ADDRESS=...
+
+Note: The current version of Growr protocol on RSK testnet is 0.3:
+- PondFactory             : 0x6069A41Ac8d73b7aE193f4890db1E84Df28a6835
+
+### Start the protocol app
+
+1. yarn dev / npm run dev - start the app locally
 
 ### Setup 
 
@@ -21,9 +28,10 @@ ENV variables:
   - deploy the protocol (pond factory + verification registry)
   - mint tokens
 
-Follow the instructions in the Readme file of the application [(https://github.com/growr-xyz/growr-core-protocol)](https://github.com/growr-xyz/growr-core-protocol).
+Follow the instructions in the Readme file of the protocol [(https://github.com/growr-xyz/growr-core-protocol)](https://github.com/growr-xyz/growr-core-protocol).
 
 2. Configure Metamask in your browser
+  - install Metamask extension to your browser
   - create an account
   - configure localhost network (RPC URL: http://localhost:8545, Chain ID: 31337)
   - select the network
@@ -31,10 +39,11 @@ Follow the instructions in the Readme file of the application [(https://github.c
 #### Setup with RSK Testnet
 
 1. Connect Metamask to RSK Testnet Network
+  - install Metamask extension to your browser
   - create an account
   - configure RSK TestNet [see instructions here](https://developers.rsk.co/wallet/use/metamask/)
   - select the network
+  - use [RSK Testnet Faucet](https://faucet.rsk.co/) to get some RBTC
 
-### Start the protocol app
-
-1. yarn dev / npm run dev - start the app locally
+### Demo
+You can watch a demo video [here](https://www.youtube.com/watch?v=5J9qBhG-uqQ)

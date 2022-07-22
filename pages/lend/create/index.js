@@ -104,7 +104,9 @@ export default function Create() {
     onSubmit: async (values) => {
       try {
         const transformedValues = {
-          ...values,
+          //...values,
+          name: values.name,
+          token: values.token,
           minLoanAmount: ethers.utils.parseUnits(values.minLoanAmount, "ether"),
           maxLoanAmount: ethers.utils.parseUnits(values.maxLoanAmount, "ether"),
           minLoanDuration: Number(values.minLoanDuration),
@@ -137,7 +139,7 @@ export default function Create() {
           names: names,
           types: types,
           contents: contents,
-          operations: operations
+          operators: operations
         }
 
         console.log("Eligibility criteria: ");
@@ -153,6 +155,7 @@ export default function Create() {
         // setCreatedPond(details);
       } catch (err) {
         console.log("createPond error: ", JSON.stringify(err, undefined, 2));
+        console.log(err);
         if (err.data) {
           toast.error(err.data.message);
         }
@@ -384,7 +387,7 @@ export default function Create() {
         )}
 
       </div>
-      <Button label="Create" onClick={formik.handleSubmit} />
+      <Button label="Create" onClick={formik.handleSubmit} type="submit" />
     </div>
   );
 
