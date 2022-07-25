@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { ethers } from "ethers";
 import { toast } from "react-toastify";
 import Button from "@/components/Button/Button";
 import useStore from "@/store/store";
 import styles from "./Modify.module.css";
-import Input from "@/components/Input/Input";
 
 import tokens from "../../../tokens.json";
 
