@@ -104,7 +104,6 @@ export default function Create() {
     onSubmit: async (values) => {
       try {
         const transformedValues = {
-          //...values,
           name: values.name,
           token: values.token,
           minLoanAmount: ethers.utils.parseUnits(values.minLoanAmount, "ether"),
