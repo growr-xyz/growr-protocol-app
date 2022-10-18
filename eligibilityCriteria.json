@@ -22,5 +22,9 @@
     {
         "name": "savingPercent",
         "label": "Saving Percent"
-    }
+    },
+	{
+		"name": "agriFinCoop",
+		"label":"Membership in Cooperative"
+	}
 ]
